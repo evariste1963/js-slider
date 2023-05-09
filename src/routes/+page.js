@@ -1,3 +1,13 @@
+const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
+
+let images = [
+    { path: imgsArr[0], id: "img1" },
+    { path: imgsArr[1], id: "img2" },
+    { path: imgsArr[2], id: "img3" },
+    { path: imgsArr[3], id: "img4" },
+    { path: imgsArr[4], id: "img5" },
+  ];
+
 let cardsArray = [
     {
       id: 1,
