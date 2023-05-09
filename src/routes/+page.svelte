@@ -77,12 +77,11 @@ let cardsArray = [
 <div class="wrapper">
     <div class="carousel">
         {#each cardsArray as card}
-<div class="card">
-    <div class="img"><img src={card.image} alt={card.title}>
-</div>
-    <h2>{card.title}</h2>
-    <span>{card.subTitle}</span>
-</div>
+            <div class="card">
+                <div class="img"><img src={card.image} alt={card.title}></div>
+                <h2>{card.title}</h2>
+                <span>{card.subTitle}</span>
+            </div>
         {/each}
     </div>
 </div>
