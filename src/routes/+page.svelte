@@ -78,11 +78,28 @@ let cardsArray = [
     <div class="carousel">
         {#each cardsArray as card}
 <div class="card">
-    <img width="130"
-    height="130" src={card.image} alt={card.title}>
+    <div class="img"><img src={card.image} alt={card.title}>
+</div>
     <h2>{card.title}</h2>
     <span>{card.subTitle}</span>
 </div>
         {/each}
     </div>
 </div>
+
+
+<style>
+    .carousel .card .img {
+  background: #8B53FF;
+  height: 148px;
+  width: 148px;
+  border-radius: 50%;
+}
+.card .img img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+}
+</style>
