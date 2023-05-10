@@ -26,11 +26,9 @@
   };
 
   const dragging = e => {
-    const dragStyle = document.querySelector(".carousel.dragging")
     if (!isDragging) return;
     //updates the scroll position of the carousel based on the cursor movement
     carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
-   dragStyle.style="scroll-snap-type: none; scroll-behavior:auto"
   };
 
   const btnScroll = (e) => {
@@ -116,7 +114,7 @@
 <div class="wrapper">
   <i id="left" class="fa-solid fa-angle-left" on:click={btnScroll} on:keydown={btnScroll}/>
   <div
-    class="carousel"
+    class="carousel dragging"
     bind:this={carousel}
     on:mousemove={dragging}
     on:mousedown={dragStart}
@@ -192,6 +190,11 @@
     background: #fff;
     border-radius: 2.7em 0.7em;
     cursor: pointer;
+  }
+
+  .carousel.dragging {
+    scroll-snap-type: none; 
+    scroll-behavior:auto
   }
 
   .card .img {
