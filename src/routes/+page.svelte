@@ -7,28 +7,30 @@
 
   let carousel;
 
-  let isDragging = false;
+  let isDragging = false, startX, startScrollLeft;
 
-  const dragStart = () => {
+  const dragStart = (e) => {
     const carousel = document.querySelector(".carousel")
     isDragging = true;
     document.querySelector(".carousel").classList.add("dragging");
     carousel.style="cursor:grab; user-select: none;"
+    //records the initial cursor and scroll position of the carousel
+    startX = e.pageX
+    startScrollLeft = carousel.scrollLeft
   };
 
   const dragStop = () => {
-    
     isDragging = false;
     document.querySelector(".carousel").classList.remove("dragging");
-   
+    document.querySelector(".carousel .card").style="scroll-snap-align: start"
   };
 
   const dragging = e => {
     const dragStyle = document.querySelector(".carousel.dragging")
     if (!isDragging) return;
-    carousel.scrollLeft = e.pageX;
-    dragStyle.style="scroll-behavior:auto"
-   
+    //updates the scroll position of the carousel based on the cursor movement
+    carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+   dragStyle.style="scroll-snap-type: none; scroll-behavior:auto"
   };
 
   const btnScroll = (e) => {
@@ -37,8 +39,6 @@
     const btnId = e.srcElement.attributes.id.value
     carousel.scrollLeft += btnId === 'left'? -firstCardWidth : firstCardWidth;
     carousel.style="scroll-behavior: smooth";
-    console.log(firstCardWidth, btnId);
-    
   }
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
@@ -168,8 +168,14 @@
     grid-auto-flow: column;
     grid-auto-columns: calc((100% / 3) - 12px);
     gap: 16px;
-    overflow: hidden;
-    
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .carousel::-webkit-scrollbar {
+    display:none
   }
 
   .carousel :where(.card, .img) {
@@ -178,9 +184,9 @@
     align-items: center;
     justify-content: center;
   }
-
   
   .carousel .card {
+    scroll-snap-align: start;
     height: 342px;
     padding-bottom: 15px;
     background: #fff;
