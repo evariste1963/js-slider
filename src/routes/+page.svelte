@@ -10,19 +10,36 @@
   let isDragging = false;
 
   const dragStart = () => {
+    const carousel = document.querySelector(".carousel")
     isDragging = true;
     document.querySelector(".carousel").classList.add("dragging");
+    carousel.style="cursor:grab; user-select: none;"
   };
 
   const dragStop = () => {
+    
     isDragging = false;
     document.querySelector(".carousel").classList.remove("dragging");
+   
   };
 
   const dragging = e => {
+    const dragStyle = document.querySelector(".carousel.dragging")
     if (!isDragging) return;
     carousel.scrollLeft = e.pageX;
+    dragStyle.style="scroll-behavior:auto"
+   
   };
+
+  const btnScroll = (e) => {
+    const carousel = document.querySelector(".carousel")
+    const firstCardWidth = carousel.querySelector(".card").offsetWidth
+    const btnId = e.srcElement.attributes.id.value
+    carousel.scrollLeft += btnId === 'left'? -firstCardWidth : firstCardWidth;
+    carousel.style="scroll-behavior: smooth";
+    console.log(firstCardWidth, btnId);
+    
+  }
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -97,7 +114,7 @@
 <svelte:window on:mouseup={dragStop} />
 
 <div class="wrapper">
-  <i class="fa-solid fa-angle-left" />
+  <i id="left" class="fa-solid fa-angle-left" on:click={btnScroll} on:keydown={btnScroll}/>
   <div
     class="carousel"
     bind:this={carousel}
@@ -106,15 +123,15 @@
   >
     {#each cardsArray as card}
       <div class="card">
-        <div class="img" draggable="false"
-          ><img src={card.image} alt={card.title} /></div
+        <div class="img" 
+          ><img src={card.image} alt={card.title} draggable="false" /></div
         >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
       </div>
     {/each}
   </div>
-  <i class="fa-solid fa-angle-right" />
+  <i id="right" class="fa-solid fa-angle-right" on:click={btnScroll} on:keydown={btnScroll}/>
 </div>
 
 <style>
@@ -152,6 +169,7 @@
     grid-auto-columns: calc((100% / 3) - 12px);
     gap: 16px;
     overflow: hidden;
+    
   }
 
   .carousel :where(.card, .img) {
@@ -161,10 +179,7 @@
     justify-content: center;
   }
 
-  .carousel .dragging .card {
-    cursor: grab;
-    user-select: none;
-  }
+  
   .carousel .card {
     height: 342px;
     padding-bottom: 15px;
