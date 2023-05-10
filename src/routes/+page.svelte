@@ -73,6 +73,14 @@
   ];
 </script>
 
+<svelte:head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=
+		swap"
+    rel="stylesheet"
+  />
+</svelte:head>
+
 <div class="wrapper">
   <div class="carousel">
     {#each cardsArray as card}
@@ -108,19 +116,33 @@
     height: 342px;
     padding-bottom: 15px;
     background: #fff;
-    border-radius: 1em;
+    border-radius: 2.7em 0.7em;
+    cursor: pointer;
   }
-  .carousel .card .img {
+
+  .card .img {
     background: #8b53ff;
     height: 148px;
     width: 148px;
     border-radius: 2.7em 0.7em;
   }
+
   .card .img img {
     width: 140px;
     height: 140px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #fff;
+  }
+
+  .card h2 {
+    font-weight: 800;
+    font-size: 1.56rem;
+    margin: 30px 0 5px;
+  }
+
+  .card span {
+    color: #6a6d78;
+    font-size: 1.31rem;
   }
 </style>
