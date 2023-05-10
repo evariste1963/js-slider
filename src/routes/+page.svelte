@@ -1,6 +1,8 @@
 <script>
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
+  // npm install --save @fortawesome/fontawesome-free
+
   import "../app.css";
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
@@ -73,15 +75,8 @@
   ];
 </script>
 
-<svelte:head>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=
-		swap"
-    rel="stylesheet"
-  />
-</svelte:head>
-
 <div class="wrapper">
+  <i class="fa-solid fa-angle-left" />
   <div class="carousel">
     {#each cardsArray as card}
       <div class="card">
@@ -91,12 +86,37 @@
       </div>
     {/each}
   </div>
+  <i class="fa-solid fa-angle-right" />
 </div>
 
 <style>
   .wrapper {
     max-width: 1100px;
     width: 100%;
+    position: relative;
+  }
+
+  .wrapper i {
+    height: 50px;
+    width: 50px;
+    background: #fff;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    font-size: 1.25rem;
+    transform: translateY(-50%);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .wrapper i:first-child {
+    left: -22px;
+  }
+
+  .wrapper i:last-child {
+    right: -22px;
   }
   .wrapper .carousel {
     display: grid;
@@ -144,5 +164,17 @@
   .card span {
     color: #6a6d78;
     font-size: 1.31rem;
+  }
+
+  @media screen and (max-width: 900px) {
+    .wrapper .carousel {
+      grid-auto-columns: calc((100% / 2) - 9px);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .wrapper .carousel {
+      grid-auto-columns: 100%;
+    }
   }
 </style>
