@@ -5,6 +5,25 @@
 
   import "../app.css";
 
+  let carousel;
+
+  let isDragging = false;
+
+  const dragStart = () => {
+    isDragging = true;
+    document.querySelector(".carousel").classList.add("dragging");
+  };
+
+  const dragStop = () => {
+    isDragging = false;
+    document.querySelector(".carousel").classList.remove("dragging");
+  };
+
+  const dragging = e => {
+    if (!isDragging) return;
+    carousel.scrollLeft = e.pageX;
+  };
+
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
   let images = [
@@ -75,12 +94,21 @@
   ];
 </script>
 
+<svelte:window on:mouseup={dragStop} />
+
 <div class="wrapper">
   <i class="fa-solid fa-angle-left" />
-  <div class="carousel">
+  <div
+    class="carousel"
+    bind:this={carousel}
+    on:mousemove={dragging}
+    on:mousedown={dragStart}
+  >
     {#each cardsArray as card}
       <div class="card">
-        <div class="img"><img src={card.image} alt={card.title} /></div>
+        <div class="img" draggable="false"
+          ><img src={card.image} alt={card.title} /></div
+        >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
       </div>
@@ -131,6 +159,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .carousel .dragging .card {
+    cursor: grab;
+    user-select: none;
   }
   .carousel .card {
     height: 342px;
