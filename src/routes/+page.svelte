@@ -1,4 +1,6 @@
 <script>
+  // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
+
   import "../app.css";
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
@@ -106,13 +108,13 @@
     height: 342px;
     padding-bottom: 15px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 1em;
   }
   .carousel .card .img {
     background: #8b53ff;
     height: 148px;
     width: 148px;
-    border-radius: 50%;
+    border-radius: 2.7em 0.7em;
   }
   .card .img img {
     width: 140px;
