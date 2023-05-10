@@ -1,10 +1,9 @@
 <script>
-     import "../app.css";
-   
+  import "../app.css";
 
-   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
+  const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
-    let images = [
+  let images = [
     { path: imgsArr[0], id: "img1" },
     { path: imgsArr[1], id: "img2" },
     { path: imgsArr[2], id: "img3" },
@@ -12,7 +11,7 @@
     { path: imgsArr[4], id: "img5" },
   ];
 
-let cardsArray = [
+  let cardsArray = [
     {
       id: 1,
       title: "Day Trips",
@@ -72,33 +71,54 @@ let cardsArray = [
   ];
 </script>
 
-
-
 <div class="wrapper">
-    <div class="carousel">
-        {#each cardsArray as card}
-            <div class="card">
-                <div class="img"><img src={card.image} alt={card.title}></div>
-                <h2>{card.title}</h2>
-                <span>{card.subTitle}</span>
-            </div>
-        {/each}
-    </div>
+  <div class="carousel">
+    {#each cardsArray as card}
+      <div class="card">
+        <div class="img"><img src={card.image} alt={card.title} /></div>
+        <h2>{card.title}</h2>
+        <span>{card.subTitle}</span>
+      </div>
+    {/each}
+  </div>
 </div>
 
-
 <style>
-    .carousel .card .img {
-  background: #8B53FF;
-  height: 148px;
-  width: 148px;
-  border-radius: 50%;
-}
-.card .img img {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #fff;
-}
+  .wrapper {
+    max-width: 1100px;
+    width: 100%;
+  }
+  .wrapper .carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  .carousel :where(.card, .img) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel .card {
+    height: 342px;
+    padding-bottom: 15px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  .carousel .card .img {
+    background: #8b53ff;
+    height: 148px;
+    width: 148px;
+    border-radius: 50%;
+  }
+  .card .img img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+  }
 </style>
