@@ -11,6 +11,23 @@
   //onMount used to pick out DOM elements
   onMount(() => {
     carousel = document.querySelector(".carousel");
+    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    const carouselChildren = [...carousel.children];
+
+    //number of cards that can fit in the carousel at once
+    let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+    //insert copies of the last few cards to start of carousel for infinite scrolling
+    carouselChildren
+      .slice(-cardsPerView)
+      .reverse()
+      .forEach(card => {
+        carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+      });
+    //insert copies of the first few cards to end of carousel for infinite scrolling
+    carouselChildren.slice(0, cardsPerView).forEach(card => {
+      carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+    });
   });
 
   let isDragging = false,
