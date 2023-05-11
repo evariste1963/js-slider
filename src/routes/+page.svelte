@@ -16,6 +16,7 @@
 
     //number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+    console.log(carousel.offsetWidth, firstCardWidth);
 
     //insert copies of the last few cards to start of carousel for infinite scrolling
     carouselChildren
