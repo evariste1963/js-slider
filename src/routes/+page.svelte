@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
   // npm install --save @fortawesome/fontawesome-free
@@ -7,22 +8,28 @@
 
   let carousel;
 
-  let isDragging = false, startX, startScrollLeft;
+  onMount(() => {
+    carousel = document.querySelector(".carousel");
+  });
 
-  const dragStart = (e) => {
-    const carousel = document.querySelector(".carousel")
+  let isDragging = false,
+    startX,
+    startScrollLeft;
+
+  const dragStart = e => {
     isDragging = true;
-    document.querySelector(".carousel").classList.add("dragging");
-    carousel.style="cursor:grab; user-select: none;"
+    carousel.classList.add("dragging");
+    carousel.style = "cursor:grab; user-select: none;";
     //records the initial cursor and scroll position of the carousel
-    startX = e.pageX
-    startScrollLeft = carousel.scrollLeft
+    startX = e.pageX;
+    startScrollLeft = carousel.scrollLeft;
   };
 
   const dragStop = () => {
     isDragging = false;
-    document.querySelector(".carousel").classList.remove("dragging");
-    document.querySelector(".carousel .card").style="scroll-snap-align: start"
+    carousel.classList.remove("dragging");
+    document.querySelector(".carousel .card").style =
+      "scroll-snap-align: start";
   };
 
   const dragging = e => {
@@ -31,23 +38,14 @@
     carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
   };
 
-  const btnScroll = (e) => {
-    const carousel = document.querySelector(".carousel")
-    const firstCardWidth = carousel.querySelector(".card").offsetWidth
-    const btnId = e.srcElement.attributes.id.value
-    carousel.scrollLeft += btnId === 'left'? -firstCardWidth : firstCardWidth;
-    carousel.style="scroll-behavior: smooth";
-  }
+  const btnScroll = e => {
+    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    const btnId = e.srcElement.attributes.id.value;
+    carousel.scrollLeft += btnId === "left" ? -firstCardWidth : firstCardWidth;
+    carousel.style = "scroll-behavior: smooth";
+  };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
-
-  let images = [
-    { path: imgsArr[0], id: "img1" },
-    { path: imgsArr[1], id: "img2" },
-    { path: imgsArr[2], id: "img3" },
-    { path: imgsArr[3], id: "img4" },
-    { path: imgsArr[4], id: "img5" },
-  ];
 
   let cardsArray = [
     {
@@ -112,7 +110,12 @@
 <svelte:window on:mouseup={dragStop} />
 
 <div class="wrapper">
-  <i id="left" class="fa-solid fa-angle-left" on:click={btnScroll} on:keydown={btnScroll}/>
+  <i
+    id="left"
+    class="fa-solid fa-angle-left"
+    on:click={btnScroll}
+    on:keydown={btnScroll}
+  />
   <div
     class="carousel dragging"
     bind:this={carousel}
@@ -121,7 +124,7 @@
   >
     {#each cardsArray as card}
       <div class="card">
-        <div class="img" 
+        <div class="img"
           ><img src={card.image} alt={card.title} draggable="false" /></div
         >
         <h2>{card.title}</h2>
@@ -129,7 +132,12 @@
       </div>
     {/each}
   </div>
-  <i id="right" class="fa-solid fa-angle-right" on:click={btnScroll} on:keydown={btnScroll}/>
+  <i
+    id="right"
+    class="fa-solid fa-angle-right"
+    on:click={btnScroll}
+    on:keydown={btnScroll}
+  />
 </div>
 
 <style>
@@ -151,7 +159,7 @@
     top: 50%;
     font-size: 1.25rem;
     transform: translateY(-50%);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   }
 
   .wrapper i:first-child {
@@ -173,7 +181,7 @@
   }
 
   .carousel::-webkit-scrollbar {
-    display:none
+    display: none;
   }
 
   .carousel :where(.card, .img) {
@@ -182,7 +190,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .carousel .card {
     scroll-snap-align: start;
     height: 342px;
@@ -193,8 +201,8 @@
   }
 
   .carousel.dragging {
-    scroll-snap-type: none; 
-    scroll-behavior:auto
+    scroll-snap-type: none;
+    scroll-behavior: auto;
   }
 
   .card .img {
