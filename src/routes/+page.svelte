@@ -8,28 +8,30 @@
 
   let carousel;
 
+
   //onMount used to pick out DOM elements
   onMount(() => {
     carousel = document.querySelector(".carousel");
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-
-    //number of cards that can fit in the carousel at once
+        
+    //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
-    console.log(carousel.offsetWidth, firstCardWidth);
-
+    
     //insert copies of the last few cards to start of carousel for infinite scrolling
     carouselChildren
       .slice(-cardsPerView)
       .reverse()
       .forEach(card => {
-        carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
-      });
+      carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+    });
     //insert copies of the first few cards to end of carousel for infinite scrolling
     carouselChildren.slice(0, cardsPerView).forEach(card => {
       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
   });
+
+  
 
   let isDragging = false,
     startX,
@@ -64,6 +66,20 @@
     carousel.style = "scroll-behavior: smooth";
   };
 
+  const infiniteScroll= () => {
+    //if carousel is at beginning, scroll to end
+    if(carousel.scrollLeft === 0){
+      //instead of fiddling about with classes, this method is far easier
+      carousel.style="scroll-behavior: auto"
+      carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth)
+      carousel.style="scroll-behavior: smooth"
+    }   //if carousel is at end, scroll to beginning
+    else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+      carousel.style="scroll-behavior: auto"
+      carousel.scrollLeft = carousel.offsetWidth
+      carousel.style="scroll-behavior: smooth"
+    }
+  }
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
   let cardsArray = [
@@ -129,17 +145,21 @@
 <svelte:window on:mouseup={dragStop} />
 
 <div class="wrapper">
+  
   <i
-    id="left"
+    id='left'
     class="fa-solid fa-angle-left"
     on:click={btnScroll}
     on:keydown={btnScroll}
   />
+  
   <!-- dragging class required below to prevent errors as it doesn't exist until it's injected in by the dragStart function -->
   <div
+     bind:this={carousel}
     class="carousel dragging"
     on:mousemove={dragging}
     on:mousedown={dragStart}
+    on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
       <div class="card">
