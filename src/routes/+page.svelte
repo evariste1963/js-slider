@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import CardArray from "$lib/CardArray.svelte";
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
   // npm install --save @fortawesome/fontawesome-free
@@ -8,8 +7,6 @@
   import "../app.css";
 
   let carousel;
-  let { cardsArray } = CardArray;
-  console.log(cardsArray);
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -51,7 +48,7 @@
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
-  /*let cardsArray = [
+  let cardsArray = [
     {
       id: 1,
       title: "Day Trips",
@@ -108,21 +105,20 @@
         "Mauris non <strong>tellus</strong> vulputate, feugiat erat non, pharetra justo. Proin consequat <strong>felis diam</strong>, malesuada auctor mi convallis sed. Sed <strong>gravida</strong> faucibus vulputate. Mauris mauris <strong>tortor</strong>,  Praesent sit amet <strong>ipsum</strong> eu risus varius blandit. <br><br>Donec blandit ac lorem et dignissim. Nam sem nisl, aliquam a ornare eu, luctus <strong>quis enim</strong>. Aenean ut felis in neque congue rutrum. Aliquam <strong>at</strong> velit.",
       image: imgsArr[1],
     },
-  ];*/
+  ];
 </script>
 
 <svelte:window on:mouseup={dragStop} />
 
-<!--
 <div class="wrapper">
   <i
     id="left"
     class="fa-solid fa-angle-left"
     on:click={btnScroll}
     on:keydown={btnScroll}
-  /> -->
-<!-- dragging class required below to prevent errors as it doesn't exist until it's injected in by the dragStart function -->
-<!-- <div
+  />
+  <!-- dragging class required below to prevent errors as it doesn't exist until it's injected in by the dragStart function -->
+  <div
     class="carousel dragging"
     on:mousemove={dragging}
     on:mousedown={dragStart}
@@ -143,9 +139,8 @@
     on:click={btnScroll}
     on:keydown={btnScroll}
   />
-
 </div>
--->
+
 <style>
   .wrapper {
     max-width: 1100px;
