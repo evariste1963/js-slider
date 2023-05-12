@@ -16,7 +16,7 @@
 
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
-
+    console.log(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
     carouselChildren
       .slice(-cardsPerView)
@@ -31,7 +31,8 @@
 
     // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
     //carousel.classList.remove("no-transition");
-    carousel.scrollLeft = carousel.offsetWidth;
+    carousel.scrollLeft =
+      carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
     //carousel.classList.remove("no-transition");
   });
 
@@ -282,7 +283,7 @@
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     .wrapper .carousel {
       grid-auto-columns: 100%;
     }
