@@ -31,23 +31,26 @@
       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
 
-    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
-    //carousel.classList.remove("no-transition");
-    carousel.scrollLeft =
-      carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
-    //carousel.classList.remove("no-transition");
-
-   
-  });
-
-/*
-  const autoPlay = () => {
-    firstCardWidth = carousel.querySelector(".card").offsetWidth;
-    carousel.scrollLeft += firstCardWidth
+    const autoPlay = () => {
+     carousel.scrollLeft += firstCardWidth
   }
 
  setInterval(autoPlay, 2500)
-*/
+
+    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
+    //carousel.classList.remove("no-transition");
+    // carousel.scrollLeft =
+    //   carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
+    //carousel.classList.remove("no-transition");
+
+    
+ 
+   
+  });
+
+  
+ 
+
 
   let isDragging = false,
     startX,
