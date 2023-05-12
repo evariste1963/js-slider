@@ -6,7 +6,7 @@
 
   import "../app.css";
 
-  let carousel;
+  let carousel, firstCardWidth
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -14,9 +14,11 @@
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
 
+
+
+
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
-    console.log(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
     carouselChildren
       .slice(-cardsPerView)
@@ -34,7 +36,18 @@
     carousel.scrollLeft =
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
     //carousel.classList.remove("no-transition");
+
+   
   });
+
+/*
+  const autoPlay = () => {
+    firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    carousel.scrollLeft += firstCardWidth
+  }
+
+ setInterval(autoPlay, 2500)
+*/
 
   let isDragging = false,
     startX,
