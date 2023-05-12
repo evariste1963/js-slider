@@ -8,30 +8,31 @@
 
   let carousel;
 
-
   //onMount used to pick out DOM elements
   onMount(() => {
     carousel = document.querySelector(".carousel");
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-        
+
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
-    
+
     //insert copies of the last few cards to start of carousel for infinite scrolling
     carouselChildren
       .slice(-cardsPerView)
       .reverse()
       .forEach(card => {
-      carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
-    });
+        carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+      });
     //insert copies of the first few cards to end of carousel for infinite scrolling
     carouselChildren.slice(0, cardsPerView).forEach(card => {
       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
+    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+    //carousel.classList.remove("no-transition");
+    carousel.scrollLeft = carousel.offsetWidth;
+    //carousel.classList.remove("no-transition");
   });
-
-  
 
   let isDragging = false,
     startX,
@@ -66,20 +67,23 @@
     carousel.style = "scroll-behavior: smooth";
   };
 
-  const infiniteScroll= () => {
+  const infiniteScroll = () => {
     //if carousel is at beginning, scroll to end
-    if(carousel.scrollLeft === 0){
+    if (carousel.scrollLeft === 0) {
       //instead of fiddling about with classes, this method is far easier
-      carousel.style="scroll-behavior: auto"
-      carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth)
-      carousel.style="scroll-behavior: smooth"
-    }   //if carousel is at end, scroll to beginning
-    else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
-      carousel.style="scroll-behavior: auto"
-      carousel.scrollLeft = carousel.offsetWidth
-      carousel.style="scroll-behavior: smooth"
+      carousel.style = "scroll-behavior: auto";
+      carousel.scrollLeft = carousel.scrollWidth - 2 * carousel.offsetWidth;
+      carousel.style = "scroll-behavior: smooth";
+    } //if carousel is at end, scroll to beginning
+    else if (
+      Math.ceil(carousel.scrollLeft) ===
+      carousel.scrollWidth - carousel.offsetWidth
+    ) {
+      carousel.style = "scroll-behavior: auto;";
+      carousel.scrollLeft = carousel.offsetWidth;
+      carousel.style = "scroll-behavior: smooth;";
     }
-  }
+  };
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
   let cardsArray = [
@@ -145,17 +149,16 @@
 <svelte:window on:mouseup={dragStop} />
 
 <div class="wrapper">
-  
   <i
-    id='left'
+    id="left"
     class="fa-solid fa-angle-left"
     on:click={btnScroll}
     on:keydown={btnScroll}
   />
-  
+
   <!-- dragging class required below to prevent errors as it doesn't exist until it's injected in by the dragStart function -->
   <div
-     bind:this={carousel}
+    bind:this={carousel}
     class="carousel dragging"
     on:mousemove={dragging}
     on:mousedown={dragStart}
@@ -211,8 +214,10 @@
   .wrapper .carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% / 3) - 12px);
-    gap: 16px;
+    grid-auto-columns: calc(
+      (100% / 3) - 12px
+    ); /*was -12 but now -16 to keep the cards in correct place onload*/
+    gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -270,9 +275,9 @@
     font-size: 1.31rem;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     .wrapper .carousel {
-      grid-auto-columns: calc((100% / 2) - 9px);
+      grid-auto-columns: calc((100% / 2) - 9px); /*was -9*/
     }
   }
 
