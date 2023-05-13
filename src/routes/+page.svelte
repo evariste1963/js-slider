@@ -1,22 +1,24 @@
 <script>
-  import { onMount } from "svelte";
+  
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
   // npm install --save @fortawesome/fontawesome-free
 
   import "../app.css";
+  import { onMount } from "svelte";
+ 
 
-  let carousel, firstCardWidth
+  let carousel;
 
   //onMount used to pick out DOM elements
   onMount(() => {
     carousel = document.querySelector(".carousel");
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-
-
-
-
+    const rect = carousel.getBoundingClientRect()
+    const cardRect= carousel.querySelector(".card").getBoundingClientRect()
+    console.log('carousel: ', rect.left, 'card: ',cardRect.left);
+    
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
@@ -30,31 +32,29 @@
     carouselChildren.slice(0, cardsPerView).forEach(card => {
       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
-
-    const autoPlay = () => {
-     carousel.scrollLeft += firstCardWidth
-  }
-
- setInterval(autoPlay, 2500)
-
-    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
-    //carousel.classList.remove("no-transition");
-    // carousel.scrollLeft =
-    //   carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
-    //carousel.classList.remove("no-transition");
-
     
- 
-   
+     // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
+    //carousel.classList.remove("no-transition");
+    carousel.scrollLeft =
+      carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
+    //carousel.classList.remove("no-transition");
+
+  const autoPlay = () => {
+    
+   carousel.classList.remove("dragging")
+    if(window.innerWidth < 800) return
+   carousel.scrollLeft += firstCardWidth
+  
+  }
+   setInterval(autoPlay, 2500)
+
+       
   });
 
   
- 
-
-
   let isDragging = false,
-    startX,
-    startScrollLeft;
+      startX,
+      startScrollLeft;
 
   const dragStart = e => {
     isDragging = true;
@@ -102,6 +102,9 @@
       carousel.style = "scroll-behavior: smooth;";
     }
   };
+
+ 
+
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
   let cardsArray = [
@@ -183,7 +186,7 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card">
+      <div class="card" >
         <div class="img"
           ><img src={card.image} alt={card.title} draggable="false" /></div
         >
