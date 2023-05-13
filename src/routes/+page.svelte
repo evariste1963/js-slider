@@ -15,9 +15,8 @@
     carousel = document.querySelector(".carousel");
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-    const rect = carousel.getBoundingClientRect()
-    const cardRect= carousel.querySelector(".card").getBoundingClientRect()
-    console.log('carousel: ', rect.left, 'card: ',cardRect.left);
+    // const rect = carousel.getBoundingClientRect()
+    // const cardRect= carousel.querySelector(".card").getBoundingClientRect()
     
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
@@ -40,17 +39,14 @@
     //carousel.classList.remove("no-transition");
 
   const autoPlay = () => {
-    
-   carousel.classList.remove("dragging")
+    carousel.classList.remove("dragging")
     if(window.innerWidth < 800) return
-   carousel.scrollLeft += firstCardWidth
+    carousel.scrollLeft += firstCardWidth
   
   }
-   setInterval(autoPlay, 2500)
-
+  setInterval(autoPlay, 3000)
        
   });
-
   
   let isDragging = false,
       startX,
