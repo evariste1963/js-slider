@@ -8,10 +8,11 @@
   import { onMount } from "svelte";
  
 
-  let carousel;
+  let carousel, wrapper, timeoutId, isAutoPlay = true, reStartAutoPlay;
 
   //onMount used to pick out DOM elements
   onMount(() => {
+    wrapper = document.querySelector(".wrapper");
     carousel = document.querySelector(".carousel");
     const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
@@ -38,15 +39,28 @@
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
     //carousel.classList.remove("no-transition");
 
+
   const autoPlay = () => {
     carousel.classList.remove("dragging")
-    if(window.innerWidth < 800) return
-    carousel.scrollLeft += firstCardWidth
-  
+    if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+      // Autoplay the carousel after every 2500 ms
+      timeoutId = setInterval(() => {
+        carousel.scrollLeft += firstCardWidth} , 2500);
   }
-  setInterval(autoPlay, 3000)
-       
+  autoPlay()
+
+  reStartAutoPlay=() => {
+   autoPlay();
+  }
+
+  clearInterval(timeoutId);
+  if(!wrapper.matches(":hover")){
+    autoPlay();
+  }
+
   });
+
+ 
   
   let isDragging = false,
       startX,
@@ -165,7 +179,7 @@
 
 <svelte:window on:mouseup={dragStop} />
 
-<div class="wrapper">
+<div class="wrapper" on:mouseenter={()=> clearInterval(timeoutId)} on:mouseleave={reStartAutoPlay}>
   <i
     id="left"
     class="fa-solid fa-angle-left"
