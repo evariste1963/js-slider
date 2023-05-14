@@ -2,23 +2,24 @@
   
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
+  //thanks to CODINGNEPAL for the original vanilla JS version
+
   // npm install --save @fortawesome/fontawesome-free
 
   import "../app.css";
   import { onMount } from "svelte";
  
 
-  let carousel, wrapper, timeoutId, isAutoPlay = true, reStartAutoPlay;
+  let carousel, wrapper, firstCardWidth, timeoutId, isAutoPlay = true, reStartAutoPlay;
+  
 
   //onMount used to pick out DOM elements
   onMount(() => {
     wrapper = document.querySelector(".wrapper");
     carousel = document.querySelector(".carousel");
-    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-    // const rect = carousel.getBoundingClientRect()
-    // const cardRect= carousel.querySelector(".card").getBoundingClientRect()
-    
+       
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
@@ -34,10 +35,9 @@
     });
     
      // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
-    //carousel.classList.remove("no-transition");
-    carousel.scrollLeft =
+      carousel.scrollLeft =
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
-    //carousel.classList.remove("no-transition");
+    
 
 
   const autoPlay = () => {
@@ -59,8 +59,6 @@
   }
 
   });
-
- 
   
   let isDragging = false,
       startX,
@@ -89,7 +87,6 @@
   };
 
   const btnScroll = e => {
-    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const btnId = e.srcElement.attributes.id.value;
     carousel.scrollLeft += btnId === "left" ? -firstCardWidth : firstCardWidth;
     carousel.style = "scroll-behavior: smooth";
@@ -112,8 +109,6 @@
       carousel.style = "scroll-behavior: smooth;";
     }
   };
-
- 
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -247,7 +242,7 @@
     grid-auto-flow: column;
     grid-auto-columns: calc(
       (100% / 3) - 12px
-    ); /*was -12 but now -16 to keep the cards in correct place onload*/
+    ); 
     gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -308,7 +303,7 @@
 
   @media screen and (max-width: 950px) {
     .wrapper .carousel {
-      grid-auto-columns: calc((100% / 2) - 9px); /*was -9*/
+      grid-auto-columns: calc((100% / 2) - 9px); 
     }
   }
 
