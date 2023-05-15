@@ -1,5 +1,4 @@
 <script>
-  
   // https://www.youtube.com/watch?v=6QE8dXq9SOE&t=1s
 
   //thanks to CODINGNEPAL for the original vanilla JS version
@@ -8,10 +7,13 @@
 
   import "../app.css";
   import { onMount } from "svelte";
- 
 
-  let carousel, wrapper, firstCardWidth, timeoutId, isAutoPlay = true, reStartAutoPlay;
-  
+  let carousel,
+    wrapper,
+    firstCardWidth,
+    timeoutId,
+    isAutoPlay = true,
+    reStartAutoPlay;
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -19,7 +21,7 @@
     carousel = document.querySelector(".carousel");
     firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-       
+
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
@@ -33,36 +35,34 @@
     carouselChildren.slice(0, cardsPerView).forEach(card => {
       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
-    
-     // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
-      carousel.scrollLeft =
+
+    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
+    carousel.scrollLeft =
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
-    
 
-
-  const autoPlay = () => {
-    carousel.classList.remove("dragging")
-    if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+    const autoPlay = () => {
+      carousel.classList.remove("dragging");
+      if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
       // Autoplay the carousel after every 2500 ms
       timeoutId = setInterval(() => {
-        carousel.scrollLeft += firstCardWidth} , 2500);
-  }
-  autoPlay()
-
-  reStartAutoPlay=() => {
-   autoPlay();
-  }
-
-  clearInterval(timeoutId);
-  if(!wrapper.matches(":hover")){
+        carousel.scrollLeft += firstCardWidth;
+      }, 2500);
+    };
     autoPlay();
-  }
 
+    reStartAutoPlay = () => {
+      autoPlay();
+    };
+
+    clearInterval(timeoutId);
+    if (!wrapper.matches(":hover")) {
+      autoPlay();
+    }
   });
-  
+
   let isDragging = false,
-      startX,
-      startScrollLeft;
+    startX,
+    startScrollLeft;
 
   const dragStart = e => {
     isDragging = true;
@@ -174,7 +174,11 @@
 
 <svelte:window on:mouseup={dragStop} />
 
-<div class="wrapper" on:mouseenter={()=> clearInterval(timeoutId)} on:mouseleave={reStartAutoPlay}>
+<div
+  class="wrapper"
+  on:mouseenter={() => clearInterval(timeoutId)}
+  on:mouseleave={reStartAutoPlay}
+>
   <i
     id="left"
     class="fa-solid fa-angle-left"
@@ -191,7 +195,7 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card" >
+      <div class="card">
         <div class="img"
           ><img src={card.image} alt={card.title} draggable="false" /></div
         >
@@ -210,40 +214,39 @@
 
 <style>
   .wrapper {
-    max-width: 1100px;
+    max-width: 75vw;
     width: 100%;
     position: relative;
   }
 
   .wrapper i {
-    height: 50px;
-    width: 50px;
+    height: 2.5em;
+    width: 2.5em;
     background: #fff;
     text-align: center;
-    line-height: 50px;
+    line-height: 2.5em;
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
     top: 50%;
     font-size: 1.25rem;
     transform: translateY(-50%);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    z-index: 999;
   }
 
   .wrapper i:first-child {
-    left: -22px;
+    left: -1.3em;
   }
 
   .wrapper i:last-child {
-    right: -22px;
+    right: -1.3em;
   }
   .wrapper .carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc(
-      (100% / 3) - 12px
-    ); 
-    gap: 14px;
+    grid-auto-columns: calc((100% / 3) - 0.6em);
+    gap: 0.85em;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -263,8 +266,8 @@
 
   .carousel .card {
     scroll-snap-align: start;
-    height: 342px;
-    padding-bottom: 15px;
+    height: 20em;
+    padding-bottom: 0.9em;
     background: #fff;
     border-radius: 2.7em 0.7em;
     cursor: pointer;
@@ -277,23 +280,23 @@
 
   .card .img {
     background: #8b53ff;
-    height: 148px;
-    width: 148px;
+    height: 10em;
+    width: 10em;
     border-radius: 2.7em 0.7em;
   }
 
   .card .img img {
-    width: 140px;
-    height: 140px;
+    width: 9em;
+    height: 9em;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #fff;
+    border: 0.3em solid #fff;
   }
 
   .card h2 {
     font-weight: 800;
     font-size: 1.56rem;
-    margin: 30px 0 5px;
+    margin: 1em 0 0.3em;
   }
 
   .card span {
@@ -303,7 +306,7 @@
 
   @media screen and (max-width: 950px) {
     .wrapper .carousel {
-      grid-auto-columns: calc((100% / 2) - 9px); 
+      grid-auto-columns: calc((100% / 2) - 9px);
     }
   }
 
