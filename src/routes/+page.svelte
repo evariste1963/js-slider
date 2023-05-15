@@ -265,7 +265,7 @@
 
   .carousel .card {
     scroll-snap-align: start;
-    height: 14em;
+    height: 16em;
     padding-bottom: 0.2em;
     background: #fff;
     border-radius: 2.7em 0.7em;
@@ -284,14 +284,14 @@
       50%,
       var(--secondary)
     );
-    height: 7em;
-    width: 9em;
+    height: 8em;
+    width: 10em;
     border-radius: 2.7em 0.7em;
   }
 
   .card .img img {
-    width: 6em;
-    height: 6em;
+    width: 7em;
+    height: 7em;
     border-radius: 50%;
     object-fit: cover;
     border: 0.3em solid #fff;
@@ -310,7 +310,7 @@
 
   @media screen and (max-width: 950px) {
     .wrapper .carousel {
-      grid-auto-columns: calc((100% / 2) - 9px);
+      grid-auto-columns: calc((100% / 2) - 7px);
     }
   }
 
