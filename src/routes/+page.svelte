@@ -244,8 +244,8 @@
   .wrapper .carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% / 3) - 0.45em);
-    gap: 0.45em;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -287,6 +287,7 @@
     height: 8em;
     width: 10em;
     border-radius: 2.7em 0.7em;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
   }
 
   .card .img img {
@@ -304,7 +305,7 @@
   }
 
   .card span {
-    color: #6a6d78;
+    color: #4f5157;
     font-size: 1.1rem;
   }
 
