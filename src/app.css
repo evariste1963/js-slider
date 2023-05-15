@@ -11,5 +11,15 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(to left top, #031A9A, #8B53FF);
+    background: linear-gradient(
+      to bottom right,
+      var(--primary),
+      25%,
+      var(--secondary)
+    );
+  }
+
+  :root {
+    --primary: #a7d3fc;
+    --secondary: #240736;
   }

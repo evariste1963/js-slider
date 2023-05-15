@@ -214,7 +214,7 @@
 
 <style>
   .wrapper {
-    max-width: 75vw;
+    max-width: 60vw;
     width: 100%;
     position: relative;
   }
@@ -232,7 +232,6 @@
     font-size: 1.25rem;
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-    z-index: 999;
   }
 
   .wrapper i:first-child {
@@ -245,8 +244,8 @@
   .wrapper .carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% / 3) - 0.6em);
-    gap: 0.85em;
+    grid-auto-columns: calc((100% / 3) - 0.45em);
+    gap: 0.45em;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -266,8 +265,8 @@
 
   .carousel .card {
     scroll-snap-align: start;
-    height: 20em;
-    padding-bottom: 0.9em;
+    height: 14em;
+    padding-bottom: 0.2em;
     background: #fff;
     border-radius: 2.7em 0.7em;
     cursor: pointer;
@@ -279,15 +278,20 @@
   }
 
   .card .img {
-    background: #8b53ff;
-    height: 10em;
-    width: 10em;
+    background: linear-gradient(
+      to bottom right,
+      var(--primary),
+      50%,
+      var(--secondary)
+    );
+    height: 7em;
+    width: 9em;
     border-radius: 2.7em 0.7em;
   }
 
   .card .img img {
-    width: 9em;
-    height: 9em;
+    width: 6em;
+    height: 6em;
     border-radius: 50%;
     object-fit: cover;
     border: 0.3em solid #fff;
@@ -295,13 +299,13 @@
 
   .card h2 {
     font-weight: 800;
-    font-size: 1.56rem;
-    margin: 1em 0 0.3em;
+    font-size: 1.3rem;
+    margin: 0.6em 0 0.3em;
   }
 
   .card span {
     color: #6a6d78;
-    font-size: 1.31rem;
+    font-size: 1.1rem;
   }
 
   @media screen and (max-width: 950px) {
