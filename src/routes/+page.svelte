@@ -13,7 +13,8 @@
     firstCardWidth,
     timeoutId,
     isAutoPlay = true,
-    reStartAutoPlay;
+    reStartAutoPlay,
+   pauseScroll = false
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -40,6 +41,7 @@
     carousel.scrollLeft =
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
 
+     
     const autoPlay = () => {
       carousel.classList.remove("dragging");
       if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
@@ -50,14 +52,16 @@
     };
     autoPlay();
 
+    
     reStartAutoPlay = () => {
+      if(pauseScroll) return
       autoPlay();
-    };
-
+    }
     clearInterval(timeoutId);
     if (!wrapper.matches(":hover")) {
       autoPlay();
     }
+  
   });
 
   let isDragging = false,
@@ -111,9 +115,8 @@
   };
 
   const openCard = e => {
-    dragStop();
+    pauseScroll = true
     e.target.classList.add("focused");
-    console.log(e.target);
   };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
