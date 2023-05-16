@@ -115,15 +115,8 @@
   };
 
   const openModal = (e) => {
-const allCards = document.querySelectorAll(".card")
-
- 
   console.log(e);
- 
-
-    // target needs to be the card so that all the array detail can be obtained"
     pauseScroll = true    
-  
   }
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
@@ -254,8 +247,13 @@ const allCards = document.querySelectorAll(".card")
     font-size: 1.25rem;
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+   transform: translateY(-50%);
+   transition: transform 0.1s linear
   }
-
+  .wrapper i:active{
+    transform: translateY(-50%) scale(0.85)
+  }
+  
   .wrapper i:first-child {
     left: -22px;
   }
