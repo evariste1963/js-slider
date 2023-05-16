@@ -115,7 +115,9 @@
   };
 
   const openModal = (e) => {
-  console.log(e);
+    // use closest to find the clicked card
+    let clickedCard = e.target.closest('.card')
+    console.log(e.target.closest('.card'));
     pauseScroll = true    
   }
 
@@ -204,13 +206,13 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card" on:dblclick={openModal}>
-        <div class="img"
+      <div class="card" id={card.id} on:dblclick={openModal}>
+        <div class="img" 
           ><img
             src={card.image}
             alt={card.title}
             draggable="false"
-            /></div
+          /></div
         >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
@@ -247,8 +249,8 @@
     font-size: 1.25rem;
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-   transform: translateY(-50%);
-   transition: transform 0.1s linear
+    transform: translateY(-50%);
+    transition: transform 0.1s linear
   }
   .wrapper i:active{
     transform: translateY(-50%) scale(0.85)
