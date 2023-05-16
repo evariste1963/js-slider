@@ -110,6 +110,12 @@
     }
   };
 
+  const openCard = e => {
+    dragStop();
+    e.target.classList.add("focused");
+    console.log(e.target);
+  };
+
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
   let cardsArray = [
@@ -197,7 +203,12 @@
     {#each cardsArray as card}
       <div class="card">
         <div class="img"
-          ><img src={card.image} alt={card.title} draggable="false" /></div
+          ><img
+            src={card.image}
+            alt={card.title}
+            draggable="false"
+            on:dblclick={openCard}
+          /></div
         >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
