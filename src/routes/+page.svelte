@@ -114,10 +114,17 @@
     }
   };
 
-  const openCard = e => {
-    pauseScroll = true
-    e.target.classList.add("focused");
-  };
+  const openModal = (e) => {
+const allCards = document.querySelectorAll(".card")
+
+ 
+  console.log(e);
+ 
+
+    // target needs to be the card so that all the array detail can be obtained"
+    pauseScroll = true    
+  
+  }
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -204,14 +211,13 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card">
+      <div class="card" on:dblclick={openModal}>
         <div class="img"
           ><img
             src={card.image}
             alt={card.title}
             draggable="false"
-            on:dblclick={openCard}
-          /></div
+            /></div
         >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
@@ -225,6 +231,8 @@
     on:keydown={btnScroll}
   />
 </div>
+
+<!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
 
 <style>
   .wrapper {
