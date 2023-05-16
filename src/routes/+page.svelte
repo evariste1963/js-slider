@@ -235,16 +235,16 @@
   }
 
   .wrapper i:first-child {
-    left: -1.3em;
+    left: -22px;
   }
 
   .wrapper i:last-child {
-    right: -1.3em;
+    right: -22px;
   }
   .wrapper .carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% / 3) - 12px);
+    grid-auto-columns: calc((100% / 3) - 9px);
     gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
