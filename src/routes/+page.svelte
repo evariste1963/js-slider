@@ -14,7 +14,7 @@
     timeoutId,
     isAutoPlay = true,
     reStartAutoPlay,
-   pauseScroll = false
+    pauseScroll = false;
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -41,7 +41,6 @@
     carousel.scrollLeft =
       carousel.offsetWidth + (1.75 * carousel.offsetWidth) / firstCardWidth;
 
-     
     const autoPlay = () => {
       carousel.classList.remove("dragging");
       if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
@@ -52,16 +51,14 @@
     };
     autoPlay();
 
-    
     reStartAutoPlay = () => {
-      if(pauseScroll) return
+      if (pauseScroll) return;
       autoPlay();
-    }
+    };
     clearInterval(timeoutId);
     if (!wrapper.matches(":hover")) {
       autoPlay();
     }
-  
   });
 
   let isDragging = false,
@@ -114,12 +111,13 @@
     }
   };
 
-  const openModal = (e) => {
+  const openModal = e => {
     // use closest to find the clicked card
-    let clickedCard = e.target.closest('.card')
-    console.log(e.target.closest('.card'));
-    pauseScroll = true    
-  }
+    let modalCardId = e.target.closest(".card").id;
+    const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
+    console.log(modalCard[0].details);
+    pauseScroll = true;
+  };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -207,12 +205,8 @@
   >
     {#each cardsArray as card}
       <div class="card" id={card.id} on:dblclick={openModal}>
-        <div class="img" 
-          ><img
-            src={card.image}
-            alt={card.title}
-            draggable="false"
-          /></div
+        <div class="img"
+          ><img src={card.image} alt={card.title} draggable="false" /></div
         >
         <h2>{card.title}</h2>
         <span>{card.subTitle}</span>
@@ -250,12 +244,12 @@
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
     transform: translateY(-50%);
-    transition: transform 0.1s linear
+    transition: transform 0.1s linear;
   }
-  .wrapper i:active{
-    transform: translateY(-50%) scale(0.85)
+  .wrapper i:active {
+    transform: translateY(-50%) scale(0.85);
   }
-  
+
   .wrapper i:first-child {
     left: -22px;
   }
