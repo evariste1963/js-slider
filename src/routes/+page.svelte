@@ -15,6 +15,7 @@
     isAutoPlay = true,
     reStartAutoPlay,
     modal,
+    overlay,
     html= '',
     pauseScroll = false;
 
@@ -118,15 +119,46 @@
   //   // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
      const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
-    console.log(modalCard[0].details);
     modal = document.querySelector(".modal")
-    console.log(modal);
-    
+    modal.classList.remove("hidden")
+    overlay = document.querySelector(".overlay")
+    overlay.classList.remove("hidden")
+     
     html = 
     `
-    <h2> ${modalCard[0].title} </h2>
+    <div class="overlay"
+      <div style="display:flex">
+        <div class="img" style="display: flex; align-items: center;
+            justify-content: center;
+            margin:auto 4em;
+            background: linear-gradient(
+              to bottom right,
+              var(--primary),
+              50%,
+              var(--secondary)
+            );
+            width: 45vw;
+            height: 30vh;        
+            border-radius: 2.7em 0.7em;
+            box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);"
+
+          ><img src= ${modalCard[0].image} alt= ${modalCard[0].title} draggable="false" style="  width: 20em;
+              height: 20em;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 0.3em solid #fff;" />
+      </div>
+
+      <div style="text-align:left; margin-right:2em">
+        <h2 style="font-size: 3rem"> ${modalCard[0].title} </h2>
+        <p style="font-size:2rem"> ${modalCard[0].details} </p>
+      </div>
+      
+    </div>
+  </div>
     `
-    modal.insertAdjacentHTML('beforeend', html)
+  
+    modal.insertAdjacentHTML('afterbegin', html)
    pauseScroll = true;
    };
 
@@ -231,12 +263,51 @@
     on:keydown={btnScroll}
   />
 </div>
-
-<div class="modal" style="position: absolute; bottom:200px"></div>
-
+<div class="overlay hidden">
+<div class="modal hidden"></div>
+</div>
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
 
 <style>
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
+  backdrop-filter: blur(4px); /*blurs page behind */
+  z-index: 99999;
+  transition: all 0.3s linear;
+}
+
+  .modal {
+    display: flex;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    scale:100%;
+    opacity:1;
+    
+    height:50vh;
+    width:75vw;
+    background: #fff;
+    border-radius:2em;
+    text-align: center;
+    align-items: center;
+    z-index: 999;
+  
+  }
+
+   .hidden {
+    visibility: hidden;
+    opacity:0;
+    scale: 0%;
+  }
+
+
   .wrapper {
     max-width: 60vw;
     width: 100%;
