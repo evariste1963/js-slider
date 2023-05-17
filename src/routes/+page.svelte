@@ -14,7 +14,10 @@
     timeoutId,
     isAutoPlay = true,
     reStartAutoPlay,
+    modal,
+    html= '',
     pauseScroll = false;
+
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -111,13 +114,21 @@
     }
   };
 
-  const openModal = e => {
-    // use closest to find the clicked card
+   const openModal = e => {
+  //   // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
-    const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
+     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
     console.log(modalCard[0].details);
-    pauseScroll = true;
-  };
+    modal = document.querySelector(".modal")
+    console.log(modal);
+    
+    html = 
+    `
+    <h2> ${modalCard[0].title} </h2>
+    `
+    modal.insertAdjacentHTML('beforeend', html)
+   pauseScroll = true;
+   };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -220,6 +231,8 @@
     on:keydown={btnScroll}
   />
 </div>
+
+<div class="modal" style="position: absolute; bottom:200px"></div>
 
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
 
