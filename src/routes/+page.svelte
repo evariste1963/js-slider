@@ -114,6 +114,17 @@
     }
   };
 
+  const closeModal = () => {
+    modal = document.querySelector(".modal");
+    modal.classList.add("hidden");
+    overlay = document.querySelector(".overlay");
+    overlay.classList.add("hidden");
+    html = "";
+    // replace html-- DO NOT INSERT AFTER BEGIN
+    modal.insertAdjacentHTML("afterbegin", html);
+    pauseScroll = false;
+  };
+
   const openModal = e => {
     //   // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
@@ -157,7 +168,7 @@
     `;
 
     modal.insertAdjacentHTML("afterbegin", html);
-    pauseScroll = true;
+    //pauseScroll = true;
   };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
@@ -262,7 +273,7 @@
   />
 </div>
 <div class="overlay hidden">
-  <div class="modal hidden" />
+  <div class="modal hidden" on:dblclick={closeModal} />
 </div>
 
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
@@ -294,6 +305,7 @@
     text-align: center;
     align-items: center;
     z-index: 999;
+    cursor: pointer;
   }
 
   .hidden {
