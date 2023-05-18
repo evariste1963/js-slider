@@ -119,9 +119,7 @@
     modal.classList.add("hidden");
     overlay = document.querySelector(".overlay");
     overlay.classList.add("hidden");
-    html = "";
-    // replace html-- DO NOT INSERT AFTER BEGIN
-    modal.insertAdjacentHTML("afterbegin", html);
+    modal.innerHTML = "";
     pauseScroll = false;
   };
 
@@ -273,7 +271,7 @@
   />
 </div>
 <div class="overlay hidden">
-  <div class="modal hidden" on:dblclick={closeModal} />
+  <div class="modal hidden" on:click={closeModal} on:keydown={closeModal} />
 </div>
 
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
@@ -288,7 +286,8 @@
     background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
     backdrop-filter: blur(4px); /*blurs page behind */
     z-index: 99999;
-    transition: all 0.4s linear;
+    scale: 100%;
+    transition: all 0.4s;
   }
 
   .modal {
