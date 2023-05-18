@@ -16,9 +16,8 @@
     reStartAutoPlay,
     modal,
     overlay,
-    html= '',
+    html = "",
     pauseScroll = false;
-
 
   //onMount used to pick out DOM elements
   onMount(() => {
@@ -115,17 +114,16 @@
     }
   };
 
-   const openModal = e => {
-  //   // use closest to find the clicked card
+  const openModal = e => {
+    //   // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
-     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
-    modal = document.querySelector(".modal")
-    modal.classList.remove("hidden")
-    overlay = document.querySelector(".overlay")
-    overlay.classList.remove("hidden")
-     
-    html = 
-    `
+    const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
+    modal = document.querySelector(".modal");
+    modal.classList.remove("hidden");
+    overlay = document.querySelector(".overlay");
+    overlay.classList.remove("hidden");
+
+    html = `
     <div class="overlay"
       <div style="display:flex">
         <div class="img" style="display: flex; align-items: center;
@@ -137,13 +135,13 @@
               50%,
               var(--secondary)
             );
-            width: 45vw;
-            height: 30vh;        
+            width: 60em;
+            height: 18em;        
             border-radius: 2.7em 0.7em;
             box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);"
 
-          ><img src= ${modalCard[0].image} alt= ${modalCard[0].title} draggable="false" style="  width: 20em;
-              height: 20em;
+          ><img src= ${modalCard[0].image} alt= ${modalCard[0].title} draggable="false" style="  width: 15em;
+              height: 15em;
               border-radius: 50%;
               object-fit: cover;
               border: 0.3em solid #fff;" />
@@ -156,11 +154,11 @@
       
     </div>
   </div>
-    `
-  
-    modal.insertAdjacentHTML('afterbegin', html)
-   pauseScroll = true;
-   };
+    `;
+
+    modal.insertAdjacentHTML("afterbegin", html);
+    pauseScroll = true;
+  };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
 
@@ -264,49 +262,48 @@
   />
 </div>
 <div class="overlay hidden">
-<div class="modal hidden"></div>
+  <div class="modal hidden" />
 </div>
+
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
 
 <style>
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
+    backdrop-filter: blur(4px); /*blurs page behind */
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
-  backdrop-filter: blur(4px); /*blurs page behind */
-  z-index: 99999;
-  transition: all 0.3s linear;
-}
+    z-index: 99999;
+    transition: all 0.3s linear;
+  }
 
   .modal {
     display: flex;
-    position:fixed;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    scale:100%;
-    opacity:1;
-    
-    height:50vh;
-    width:75vw;
+    scale: 100%;
+    opacity: 1;
+    border-radius: 10em 2em;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
+    height: 50vh;
+    width: 75vw;
     background: #fff;
-    border-radius:2em;
     text-align: center;
     align-items: center;
     z-index: 999;
-  
   }
 
-   .hidden {
+  .hidden {
     visibility: hidden;
-    opacity:0;
+    opacity: 0;
     scale: 0%;
   }
-
 
   .wrapper {
     max-width: 60vw;
