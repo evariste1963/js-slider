@@ -262,6 +262,8 @@
         <span>{card.subTitle}</span>
       </div>
     {/each}
+
+    
   </div>
   <i
     id="right"
@@ -279,15 +281,17 @@
 <style>
   .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /*top:0;
+    left:0;*/
+    width: 85%;
+    height: 85%;
+    margin: auto;
     background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
     backdrop-filter: blur(12px); /*blurs page behind */
+    border-radius: 20em 6em;
     z-index: 99;
     transform: scale(1);
-    transition: all 0.6s;
+    transition: all 0.5s;
   }
 
   .modal {
@@ -308,7 +312,7 @@
     z-index: 999;
     cursor: pointer;
     transform: scale(1);
-    transition: all 0.6s;
+    transition: all 0.5s;
   }
   .modal {
     transform: translate(-50%, -50%);
