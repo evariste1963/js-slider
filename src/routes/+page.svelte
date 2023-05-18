@@ -148,8 +148,8 @@
       </div>
 
       <div style="text-align:left; margin-right:2em">
-        <h2 style="font-size: 3rem"> ${modalCard[0].title} </h2>
-        <p style="font-size:2rem"> ${modalCard[0].details} </p>
+        <h2 style="font-size: 2.5rem; margin-bottom: 0.5em"> ${modalCard[0].title} </h2>
+        <p style="font-size: 1.5rem"> ${modalCard[0].details} </p>
       </div>
       
     </div>
