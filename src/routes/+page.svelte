@@ -276,9 +276,8 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
     backdrop-filter: blur(4px); /*blurs page behind */
-
     z-index: 99999;
-    transition: all 0.3s linear;
+    transition: all 0.4s linear;
   }
 
   .modal {
@@ -287,8 +286,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    scale: 100%;
-    opacity: 1;
     border-radius: 10em 2em;
     box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
     height: 50vh;
@@ -301,7 +298,6 @@
 
   .hidden {
     visibility: hidden;
-    opacity: 0;
     scale: 0%;
   }
 
@@ -344,9 +340,11 @@
     grid-auto-columns: calc((100% / 3) - 9px);
     gap: 12px;
     overflow-x: auto;
+    height: 300px;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    align-items: center;
   }
 
   .carousel::-webkit-scrollbar {
@@ -385,6 +383,10 @@
     width: 10em;
     border-radius: 2.7em 0.7em;
     box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
+  }
+
+  .card .img:hover {
+    transform: scale(1.04);
   }
 
   .card .img img {
