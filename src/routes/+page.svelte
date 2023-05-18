@@ -114,11 +114,14 @@
     }
   };
 
-  const closeModal = () => {
+  const toggleHidden = () => {
     modal = document.querySelector(".modal");
-    modal.classList.add("hidden");
     overlay = document.querySelector(".overlay");
-    overlay.classList.add("hidden");
+    modal.classList.toggle("hidden");
+    overlay.classList.toggle("hidden");
+  };
+  const closeModal = () => {
+    toggleHidden();
     modal.innerHTML = "";
     pauseScroll = false;
   };
@@ -127,11 +130,7 @@
     //   // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
-    modal = document.querySelector(".modal");
-    modal.classList.remove("hidden");
-    overlay = document.querySelector(".overlay");
-    overlay.classList.remove("hidden");
-
+    toggleHidden();
     html = `
     <div class="overlay"
       <div style="display:flex">
@@ -166,7 +165,7 @@
     `;
 
     modal.insertAdjacentHTML("afterbegin", html);
-    //pauseScroll = true;
+    pauseScroll = true;
   };
 
   const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
