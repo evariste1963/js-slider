@@ -157,7 +157,7 @@
         </div>
 
         <div style="text-align:left; padding-right:2em;">
-          <h2 style="font-size: 2.5vw; margin-bottom: 0.5em"> ${modalCard[0].title} </h2>
+          <h2 style="font-size: 2.1vw; margin-bottom: 0.5em"> ${modalCard[0].title} </h2>
           <p style="font-size: 1.2vw"> ${modalCard[0].details} </p>
         </div>
       
