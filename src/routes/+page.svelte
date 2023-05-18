@@ -16,6 +16,7 @@
     reStartAutoPlay,
     modal,
     overlay,
+    extendedCarouselCards,
     html = "",
     pauseScroll = false;
 
@@ -36,9 +37,15 @@
         carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
       });
     //insert copies of the first few cards to end of carousel for infinite scrolling
-    carouselChildren.slice(0, cardsPerView).forEach(card => {
-      carousel.insertAdjacentHTML("beforeend", card.outerHTML);
-    });
+    carouselChildren.slice(0, cardsPerView)
+      .forEach(card => {
+       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+      });
+
+      
+    //have to use EventListener instead of svelte on:dblclick to capture all cards including extras on both ends of carousel
+    extendedCarouselCards = document.querySelectorAll(".card")
+    extendedCarouselCards.forEach(card => card.addEventListener('dblclick', openModal))
 
     // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
     carousel.scrollLeft =
@@ -114,20 +121,25 @@
     }
   };
 
+
+
   const toggleHidden = () => {
     modal = document.querySelector(".modal");
     overlay = document.querySelector(".overlay");
+    modal.addEventListener('mouseleave', reStartAutoPlay )
     modal.classList.toggle("hidden");
     overlay.classList.toggle("hidden");
   };
+  
   const closeModal = async () => {
     toggleHidden();
-    setTimeout(() => (modal.innerHTML = ""), 700);
     pauseScroll = false;
+    setTimeout(() => (modal.innerHTML = ""), 700);
   };
 
   const openModal = e => {
     // use closest to find the clicked card
+    
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
     toggleHidden();
@@ -254,7 +266,7 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card" id={card.id} on:dblclick={openModal}>
+      <div class="card" id={card.id} >
         <div class="img"
           ><img src={card.image} alt={card.title} draggable="false" /></div
         >
