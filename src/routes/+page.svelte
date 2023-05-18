@@ -120,14 +120,14 @@
     modal.classList.toggle("hidden");
     overlay.classList.toggle("hidden");
   };
-  const closeModal = () => {
+  const closeModal = async () => {
     toggleHidden();
-    modal.innerHTML = "";
+    setTimeout(() => (modal.innerHTML = ""), 700);
     pauseScroll = false;
   };
 
   const openModal = e => {
-    //   // use closest to find the clicked card
+    // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
     toggleHidden();
@@ -284,9 +284,9 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
     backdrop-filter: blur(4px); /*blurs page behind */
-    z-index: 99999;
-    scale: 100%;
-    transition: all 0.4s;
+    z-index: 99;
+    transform: scale(1);
+    transition: all 0.6s;
   }
 
   .modal {
@@ -294,7 +294,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    user-select: none;
     border-radius: 10em 2em;
     box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
     height: 50vh;
@@ -304,11 +304,16 @@
     align-items: center;
     z-index: 999;
     cursor: pointer;
+    transform: scale(1);
+    transition: all 0.6s;
+  }
+  .modal {
+    transform: translate(-50%, -50%);
   }
 
   .hidden {
     visibility: hidden;
-    scale: 0%;
+    transform: scale(0);
   }
 
   .wrapper {
