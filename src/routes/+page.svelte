@@ -136,32 +136,33 @@
       <div style="display:flex">
         <div class="img" style="display: flex; align-items: center;
             justify-content: center;
-            margin:auto 4em;
+            margin:auto 2em auto 1em;
             background: linear-gradient(
               to bottom right,
               var(--primary),
               50%,
               var(--secondary)
             );
-            width: 60em;
-            height: 18em;        
-            border-radius: 2.7em 0.7em;
-            box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);"
+            width: fit-content;
+            padding: 1em 2.5em;
+            height: fit-content;        
+            border-radius: 25% 10%;
+            box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.7);"
 
-          ><img src= ${modalCard[0].image} alt= ${modalCard[0].title} draggable="false" style="  width: 15em;
-              height: 15em;
+          ><img src= ${modalCard[0].image} alt= ${modalCard[0].title} draggable="false" style="  width: 12vw;
+              height: 12vw;
               border-radius: 50%;
               object-fit: cover;
               border: 0.3em solid #fff;" />
-      </div>
+        </div>
 
-      <div style="text-align:left; margin-right:2em">
-        <h2 style="font-size: 2.5rem; margin-bottom: 0.5em"> ${modalCard[0].title} </h2>
-        <p style="font-size: 1.5rem"> ${modalCard[0].details} </p>
-      </div>
+        <div style="text-align:left; padding-right:2em;">
+          <h2 style="font-size: 2.5vw; margin-bottom: 0.5em"> ${modalCard[0].title} </h2>
+          <p style="font-size: 1.2vw"> ${modalCard[0].details} </p>
+        </div>
       
+      </div>
     </div>
-  </div>
     `;
 
     modal.insertAdjacentHTML("afterbegin", html);
@@ -283,7 +284,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1); /*darkens page behind */
-    backdrop-filter: blur(4px); /*blurs page behind */
+    backdrop-filter: blur(12px); /*blurs page behind */
     z-index: 99;
     transform: scale(1);
     transition: all 0.6s;
@@ -295,10 +296,12 @@
     top: 50%;
     left: 50%;
     user-select: none;
-    border-radius: 10em 2em;
-    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
-    height: 50vh;
-    width: 75vw;
+    border-radius: 8em 2em;
+    box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.4);
+    height: auto;
+    min-height: 30vh;
+    width: 70%;
+    padding: 3em 2em;
     background: #fff;
     text-align: center;
     align-items: center;
