@@ -37,15 +37,15 @@
         carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
       });
     //insert copies of the first few cards to end of carousel for infinite scrolling
-    carouselChildren.slice(0, cardsPerView)
-      .forEach(card => {
-       carousel.insertAdjacentHTML("beforeend", card.outerHTML);
-      });
+    carouselChildren.slice(0, cardsPerView).forEach(card => {
+      carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+    });
 
-      
     //have to use EventListener instead of svelte on:dblclick to capture all cards including extras on both ends of carousel
-    extendedCarouselCards = document.querySelectorAll(".card")
-    extendedCarouselCards.forEach(card => card.addEventListener('dblclick', openModal))
+    extendedCarouselCards = document.querySelectorAll(".card");
+    extendedCarouselCards.forEach(card =>
+      card.addEventListener("dblclick", openModal)
+    );
 
     // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox/chrome etc
     carousel.scrollLeft =
@@ -121,16 +121,14 @@
     }
   };
 
-
-
   const toggleHidden = () => {
     modal = document.querySelector(".modal");
     overlay = document.querySelector(".overlay");
-    modal.addEventListener('mouseleave', reStartAutoPlay )
+    modal.addEventListener("mouseleave", reStartAutoPlay);
     modal.classList.toggle("hidden");
     overlay.classList.toggle("hidden");
   };
-  
+
   const closeModal = async () => {
     toggleHidden();
     pauseScroll = false;
@@ -139,7 +137,7 @@
 
   const openModal = e => {
     // use closest to find the clicked card
-    
+
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
     toggleHidden();
@@ -266,7 +264,7 @@
     on:scroll={infiniteScroll}
   >
     {#each cardsArray as card}
-      <div class="card" id={card.id} >
+      <div class="card" id={card.id}>
         <div class="img"
           ><img src={card.image} alt={card.title} draggable="false" /></div
         >
@@ -274,8 +272,6 @@
         <span>{card.subTitle}</span>
       </div>
     {/each}
-
-    
   </div>
   <i
     id="right"
@@ -284,8 +280,8 @@
     on:keydown={btnScroll}
   />
 </div>
-<div class="overlay hidden">
-  <div class="modal hidden" on:click={closeModal} on:keydown={closeModal} />
+<div class="overlay hidden" on:click={closeModal} on:keydown={closeModal}>
+  <div class="modal hidden" />
 </div>
 
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
@@ -304,6 +300,7 @@
     z-index: 99;
     transform: scale(1);
     transition: all 0.5s;
+    cursor: pointer;
   }
 
   .modal {
@@ -322,7 +319,6 @@
     text-align: center;
     align-items: center;
     z-index: 999;
-    cursor: pointer;
     transform: scale(1);
     transition: all 0.5s;
   }
