@@ -11,14 +11,15 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    /*background: linear-gradient(
+    background: linear-gradient(
       to bottom right,
       var(--primary),
       25%,
       var(--secondary)
-    );*/
+    );
     background-image: url("./lib/images/img6.jpg") ;
     background-size: cover;
+    
   }
 
   :root {

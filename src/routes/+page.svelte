@@ -12,10 +12,9 @@
     wrapper,
     firstCardWidth,
     timeoutId,
-    isAutoPlay = true,
     reStartAutoPlay,
-    modal,
     overlay,
+    modal,
     extendedCarouselCards,
     html = "",
     pauseScroll = false;
@@ -24,8 +23,10 @@
   onMount(() => {
     wrapper = document.querySelector(".wrapper");
     carousel = document.querySelector(".carousel");
+    modal = document.querySelector(".modal");
     firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
+    const isAutoPlay = true;
 
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
@@ -122,7 +123,7 @@
   };
 
   const toggleHidden = () => {
-    modal = document.querySelector(".modal");
+    //modal = document.querySelector(".modal");
     overlay = document.querySelector(".overlay");
     overlay.addEventListener("mouseleave", reStartAutoPlay);
     overlay.classList.toggle("hidden");
@@ -131,10 +132,11 @@
   const closeModal = () => {
     toggleHidden();
     pauseScroll = false;
-    setTimeout(() => (modal.innerHTML = ""), 500);
   };
 
   const openModal = e => {
+    //modal = document.querySelector(".modal");
+    modal.innerHTML = "";
     // use closest to find the clicked card
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
@@ -173,7 +175,7 @@
     </div>
     `;
 
-    document.querySelector(".modal").insertAdjacentHTML("afterbegin", html);
+    modal.insertAdjacentHTML("afterbegin", html);
     pauseScroll = true;
   };
 
@@ -318,7 +320,7 @@
     align-items: center;
     z-index: 999;
     transform: scale(1);
-    transition: all 0.5s;
+    transition: all 0.3s;
   }
   .modal {
     transform: translate(-50%, -50%);
@@ -326,7 +328,7 @@
 
   .hidden {
     visibility: hidden;
-    transform: scale(0);
+    transform: scale(0%);
   }
 
   .wrapper {
