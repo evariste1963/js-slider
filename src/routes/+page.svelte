@@ -178,7 +178,7 @@
     pauseScroll = true;
   };
 
-  const imgsArr = Object.keys(import.meta.glob("$lib/images/**/*.*"));
+  const imgsArr = Object.keys(import.meta.glob("$lib/images/*.*"));
 
   let cardsArray = [
     {
