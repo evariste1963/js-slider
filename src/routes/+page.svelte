@@ -21,13 +21,12 @@
 
   //onMount used to pick out DOM elements
   onMount(() => {
+    const isAutoPlay = true;
     wrapper = document.querySelector(".wrapper");
     carousel = document.querySelector(".carousel");
     modal = document.querySelector(".modal");
     firstCardWidth = carousel.querySelector(".card").offsetWidth;
     const carouselChildren = [...carousel.children];
-    const isAutoPlay = true;
-
     //get number of cards that can fit in the carousel at once
     let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
     //insert copies of the last few cards to start of carousel for infinite scrolling
