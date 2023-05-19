@@ -386,6 +386,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 2.7em 0.7em;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
   }
 
   .carousel .card {
@@ -393,7 +395,6 @@
     height: 16em;
     padding-bottom: 0.2em;
     background: #fff;
-    border-radius: 2.7em 0.7em;
     cursor: pointer;
   }
 
@@ -411,8 +412,6 @@
     );
     height: 8em;
     width: 10em;
-    border-radius: 2.7em 0.7em;
-    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7);
   }
 
   .card .img:hover {
