@@ -124,20 +124,18 @@
   const toggleHidden = () => {
     modal = document.querySelector(".modal");
     overlay = document.querySelector(".overlay");
-    modal.addEventListener("mouseleave", reStartAutoPlay);
-    modal.classList.toggle("hidden");
+    overlay.addEventListener("mouseleave", reStartAutoPlay);
     overlay.classList.toggle("hidden");
   };
 
-  const closeModal = async () => {
+  const closeModal = () => {
     toggleHidden();
     pauseScroll = false;
-    setTimeout(() => (modal.innerHTML = ""), 700);
+    setTimeout(() => (modal.innerHTML = ""), 500);
   };
 
   const openModal = e => {
     // use closest to find the clicked card
-
     let modalCardId = e.target.closest(".card").id;
     const modalCard = cardsArray.filter(card => +card.id == +modalCardId);
     toggleHidden();
@@ -175,7 +173,7 @@
     </div>
     `;
 
-    modal.insertAdjacentHTML("afterbegin", html);
+    document.querySelector(".modal").insertAdjacentHTML("afterbegin", html);
     pauseScroll = true;
   };
 
@@ -281,7 +279,7 @@
   />
 </div>
 <div class="overlay hidden" on:click={closeModal} on:keydown={closeModal}>
-  <div class="modal hidden" />
+  <div class="modal" />
 </div>
 
 <!-- <div class="hidden"> modal window code goes here, position is absolute and is hidden in css until doubleclicked card - card details will have to be injected in using js </div>-->
@@ -350,7 +348,6 @@
     font-size: 1.25rem;
     transform: translateY(-50%);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-    transform: translateY(-50%);
     transition: transform 0.1s linear;
   }
   .wrapper i:active {
